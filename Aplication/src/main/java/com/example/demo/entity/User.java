@@ -1,4 +1,4 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -38,6 +38,9 @@ public class User implements Serializable {
 	@Column
 	private String username;
 
+	@Column
+	private String password;
+
 	@Transient
 	private String confirmPassword;
 
@@ -48,6 +51,10 @@ public class User implements Serializable {
 	public User(Long id) {
 		super();
 		this.id = id;
+	}
+
+	public User() {
+		super();
 	}
 
 	public Long getId() {
@@ -90,6 +97,14 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
@@ -109,7 +124,8 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", username=" + username + ", confirmPassword=" + confirmPassword + ", roles=" + roles + "]";
+				+ ", username=" + username + ", password=" + password + ", confirmPassword=" + confirmPassword
+				+ ", roles=" + roles + "]";
 	}
 
 	@Override
@@ -121,6 +137,7 @@ public class User implements Serializable {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -159,6 +176,11 @@ public class User implements Serializable {
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
 			return false;
 		if (roles == null) {
 			if (other.roles != null)
