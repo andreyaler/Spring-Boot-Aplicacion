@@ -13,8 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+import org.aspectj.lang.annotation.DeclareAnnotation;
 import org.hibernate.annotations.GenericGenerator;
+
+import com.sun.istack.NotNull;
 
 @Entity
 public class User implements Serializable {
@@ -27,23 +32,31 @@ public class User implements Serializable {
 	private Long id;
 
 	@Column
+	@NotBlank
+	@Size(min=1, max=8, message="No se cumple las reglas del tamaño")
 	private String firstName;
 
 	@Column
+	@NotBlank
 	private String lastName;
 
 	@Column
+	@NotBlank
 	private String email;
 
 	@Column
+	@NotBlank
 	private String username;
 
 	@Column
+	@NotBlank
 	private String password;
 
 	@Transient
+	@NotBlank
 	private String confirmPassword;
 
+	@Size(min=1)
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
